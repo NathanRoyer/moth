@@ -1,0 +1,48 @@
+[package]
+name = "moth"
+description = "Naive LAMP stack alternative"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+# lib, bin, cargo-moth
+log = "0.4"
+flume = "0.10.14"
+tiny_http = "0.12.0"
+lmfu = "1.3.1"
+
+# bin, cargo-moth
+simplelog = { version = "0.12.1", optional = true }
+cpio = { version = "0.2.2", optional = true }
+rustgit = { version = "1.1.1", optional = true }
+
+# bin
+upon = { version = "0.7.1", optional = true, default-features = false, features = [ "unicode" ] }
+wasmi = { version = "0.31.0", optional = true }
+rand = "0.8"
+
+# cargo-moth
+sha2 = { version = "0.10.7", optional = true }
+ureq = { version = "2.7.1", optional = true }
+
+[features]
+default = [ "bin", "cargo-moth" ]
+cargo-moth = [ "dep:simplelog", "dep:cpio", "dep:sha2", "dep:ureq", "dep:rustgit" ]
+bin = [ "dep:simplelog", "dep:cpio", "dep:sha2", "dep:upon", "dep:rustgit", "dep:wasmi" ]
+
+[lib]
+path = "lib/lib.rs"
+required-features = ["lib"]
+
+[[bin]]
+path = "cargo-moth/main.rs"
+name = "cargo-moth"
+required-features = ["cargo-moth"]
+
+[[bin]]
+path = "moth-wasm/main.rs"
+name = "moth"
+required-features = ["bin"]

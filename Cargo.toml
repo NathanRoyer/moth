@@ -1,0 +1,15 @@
+[workspace]
+members = [
+    "moth",
+    "moth-wasm",
+    "moth-wasm-macros",
+]
+default-members = [ "moth" ]
+exclude = [ "example-service" ]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/NathanRoyer/moth"
+authors = [ "Nathan ROYER <nathan.royer.pro@gmail.com>" ]
